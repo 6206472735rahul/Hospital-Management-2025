@@ -38,6 +38,34 @@ public class DoctorController {
         return map;
 
     }
+// if we wanna update/edit all the things through
+    // id
+    // step1-> firstly check id is present in HashMap(database)or not
+    //step2--> it is present then update it using @putMapping
+    @PutMapping("/updateAll/{id}")
+    public String UpdateAlldoctors(@PathVariable int id,@RequestBody Doctor doctor){
+        Doctor idPresent= map.get(id);
+        if(idPresent==null){
+            // id is not present in HashMap(db)
+            return "We can't update  here";
+        }
+        else{
+            // yes id is present in HashMap(db)
+            map.put(doctor.getId(),doctor);
+            return "We can update here";
+            // internally update all the thing
+            // because key should be always unique in hashmap
+            // if we get duplicate key then it will update with current value
+        }
+
+    }
+    // delete All the doctors through id using @DeleteMapping
+    @DeleteMapping("/deleteAll/{id}")
+    public String deleteAlldoctors(@PathVariable int id){
+        map.remove(id);
+        return"Doctors deleted successfully";
+
+    }
 
 
 }
